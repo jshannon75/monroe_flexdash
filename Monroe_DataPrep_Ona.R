@@ -28,7 +28,7 @@ parcel.points <- read.csv("Monroe_parcels.csv",stringsAsFactors=FALSE)
 survey.data<-merge(Monroe_data,parcel.points,by.x="Parcel_ID",by.y="ID")
 survey.data<-survey.data[,c(1:3,5:49,61:62)]
 
-column.names<-read.csv("Monroe_collabels.csv",header=FALSE)
+column.names<-read.csv("Monroe_collabels.csv",header=FALSE) #May have to edit this file to match existing data
 names(survey.data)<-column.names[,2]
 
 #Get rid of NAs
