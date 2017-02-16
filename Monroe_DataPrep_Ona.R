@@ -1,8 +1,10 @@
 library(ona) #See http://onaio.github.io/ona.R/ for more on this package
+library(tidyverse)
 MonroeData_v9<-onaDownload("Monroe_Hsurvey_v9","communitymapuga","godawgs!")
 Monroe_data_v9<-data.frame(MonroeData_v9)
 Monroe_data_v9$ParcelID<-as.character(Monroe_data_v9$Parcel_ID)
 Monroe_data<-Monroe_data_v9
+Monroe_data[, 8:45] <- sapply(Monroe_data[,8:45 ], as.character)
 
 #Will add in version 8 later
 
@@ -32,11 +34,12 @@ column.names<-read.csv("Monroe_collabels.csv",header=FALSE) #May have to edit th
 names(survey.data)<-column.names[,2]
 
 #Get rid of NAs
-survey.data[survey.data=="n/a"]<-"NA"
-survey.data[,1:42][is.na(survey.data[,1:42])]<-"NA"
-survey.data[,11:42][survey.data[,11:42]=="NA"]<-"False"
+#survey.data[survey.data=="n/a"]<-"NA"
+#survey.data[,1:42][is.na(survey.data[,1:42])]<-"NA"
+#survey.data[,11:42][survey.data[,11:42]=="NA"]<-"False"
 
 #Convert true/false to yes/no
+
 survey.data[survey.data=="True"]<-"Yes"
 survey.data[survey.data=="False"]<-"No"
 survey.data[survey.data=="TRUE"]<-"Yes"
