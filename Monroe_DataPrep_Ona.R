@@ -1,7 +1,7 @@
 library(ona) #See http://onaio.github.io/ona.R/ for more on this package
 library(tidyverse)
 MonroeData_v9<-onaDownload("Monroe_Hsurvey_v9","communitymapuga","godawgs!")
-Monroe_data_v9<-data.frame(MonroeData_v9)
+Monroe_data_v9<-as_tibble(MonroeData_v9)
 Monroe_data_v9$ParcelID<-as.character(Monroe_data_v9$Parcel_ID)
 Monroe_data<-Monroe_data_v9
 Monroe_data[, 8:45] <- sapply(Monroe_data[,8:45 ], as.character)
@@ -26,7 +26,7 @@ Monroe_data[Monroe_data$parcel_len==8,]$ParcelID<-paste(Monroe_data[Monroe_data$
 # Monroe_data_new$Dummy<-NULL
 
 #Join in parcel data
-parcel.points <- read.csv("Monroe_parcels.csv",stringsAsFactors=FALSE)
+parcel.points <- read_csv("Monroe_form_v10/Monroe_parcels.csv")
 survey.data<-merge(Monroe_data,parcel.points,by.x="ParcelID",by.y="ID")
 survey.data<-survey.data[,c(1:3,5:49,61:62)]
 
